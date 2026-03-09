@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laptop Price Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="badge">
+      <span class="badge-dot"></span>
+      ML-POWERED ESTIMATOR
+    </div>
+    <h1>Laptop Price<br>Predictor</h1>
+    <p>Enter your laptop's specifications below and our machine learning model will instantly estimate its market price.</p>
+    <div class="features">
+      <div class="feat">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Real-time prediction
+      </div>
+      <div class="feat">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Instant results
+      </div>
+      <div class="feat">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        High accuracy model
+      </div>
+      <div class="feat">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        8+ spec parameters
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ FORM CARD ══ -->
+  <div class="card">
+    <div class="section-label">Laptop Specifications</div>
+
+    <form id="predictForm" action="/predict" method="post" novalidate>
+      <div class="form-grid">
+
+        <!-- Brand -->
+        <div class="field" id="f-brand">
+          <label>Brand <span class="req">*</span></label>
+          <select name="brand" id="brand">
+            <option value="" disabled selected>Select brand</option>
+            <option>Apple</option>
+            <option>Dell</option>
+            <option>HP</option>
+            <option>Lenovo</option>
+            <option>Asus</option>
+            <option>Acer</option>
+            <option>MSI</option>
+            <option>Samsung</option>
+            <option>Microsoft</option>
+            <option>Razer</option>
+            <option>Toshiba</option>
+            <option>LG</option>
+            <option>Other</option>
+          </select>
+          <span class="err-msg">Please select a brand.</span>
+        </div>
+
+        <!-- Processor Brand -->
+        <div class="field" id="f-proc-brand">
+          <label>Processor Brand <span class="req">*</span></label>
+          <select name="processor_brand" id="proc-brand">
+            <option value="" disabled selected>Select brand</option>
+            <option>Intel</option>
+            <option>AMD</option>
+            <option>Apple Silicon</option>
+            <option>Qualcomm</option>
+          </select>
+          <span class="err-msg">Please select a processor brand.</span>
+        </div>
+
+        <!-- Processor Name -->
+        <div class="field full" id="f-proc-name">
+          <label>Processor Name <span class="req">*</span></label>
+          <select name="processor_name" id="proc-name">
+            <option value="" disabled selected>Select processor</option>
+            <!-- Filled dynamically -->
+          </select>
+          <span class="err-msg">Please select a processor.</span>
+        </div>
+
+        <!-- RAM -->
+        <div class="field" id="f-ram">
+          <label>RAM (GB) <span class="req">*</span></label>
+          <input type="number" name="ram" placeholder="e.g. 16" min="1" max="512"/>
+          <span class="err-msg">Enter RAM in GB (1–512).</span>
+        </div>
+
+        <!-- SSD -->
+        <div class="field" id="f-ssd">
+          <label>SSD (GB) <span class="req">*</span></label>
+          <input type="number" name="ssd" placeholder="e.g. 512" min="0" max="8000"/>
+          <span class="err-msg">Enter SSD storage (0–8000 GB).</span>
+        </div>
+
+        <!-- HDD -->
+        <div class="field" id="f-hdd">
+          <label>HDD (GB)</label>
+          <input type="number" name="hdd" placeholder="e.g. 1000 (0 if none)" min="0" max="10000"/>
+        </div>
+
+        <!-- Graphic Card -->
+        <div class="field" id="f-graphic">
+          <label>Graphic VRAM (GB)</label>
+          <input type="number" name="graphic" placeholder="e.g. 4 (0 if integrated)" min="0" max="80"/>
+        </div>
+
+        <!-- Weight -->
+        <div class="field" id="f-weight">
+          <label>Weight (kg) <span class="req">*</span></label>
+          <input type="number" name="weight" step="0.01" placeholder="e.g. 1.8" min="0.5" max="10"/>
+          <span class="err-msg">Enter weight in kg (0.5–10).</span>
+        </div>
+
+        <!-- Touchscreen -->
+        <div class="field">
+          <label>Touchscreen</label>
+          <div class="toggle-group">
+            <input class="toggle-option" type="radio" name="touchscreen" id="ts-yes" value="Yes"/>
+            <label class="toggle-label" for="ts-yes">✓ Yes</label>
+            <input class="toggle-option" type="radio" name="touchscreen" id="ts-no" value="No" checked/>
+            <label class="toggle-label" for="ts-no">✗ No</label>
+          </div>
+        </div>
+
+      </div><!-- /form-grid -->
+
+      <div class="divider"></div>
+
+      <button type="submit" class="btn-predict" id="submitBtn">
+        <div class="btn-inner">
+          <div class="spinner"></div>
+          <span class="btn-text">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            PREDICT PRICE
+          </span>
+        </div>
+      </button>
+    </form>
+
+    <!-- ══ RESULT ══ -->
+    <div class="result-card" id="resultCard">
+      <div class="result-label">▸ ESTIMATED MARKET PRICE</div>
+      <div class="result-price" id="resultPrice"><span>₹</span>—</div>
+      <div class="result-note" id="resultNote">Based on your specifications • ±5% accuracy range</div>
+      <div class="result-meta" id="resultMeta"></div>
+    </div>
+
+    <!-- ══ TIPS ══ -->
+    <div class="tips-card">
+      <div class="tips-title">// HOW IT WORKS</div>
+      <div class="tip-row">
+        <svg class="tip-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Our model was trained on thousands of real laptop listings to learn how specs affect price.
+      </div>
+      <div class="tip-row">
+        <svg class="tip-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Higher RAM, SSD, and dedicated graphics tend to raise the predicted price significantly.
+      </div>
+      <div class="tip-row">
+        <svg class="tip-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Premium brands like Apple and Razer typically command a 20–40% price premium.
+      </div>
+    </div>
+
+  </div><!-- /card -->
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    ⬡ Machine Learning Project &nbsp;·&nbsp; Built with <a href="#">Scikit-learn</a> &nbsp;·&nbsp; 2025
+  </footer>
+
+</div><!-- /page -->
+
+<script src="./static/script.js"></script>
+</body>
+</html>
